@@ -1,5 +1,8 @@
 import os
 import time
+import pty
+import tty
+import select
 import signal
 from socket import *
 ADDR=("0.0.0.0",7777)
