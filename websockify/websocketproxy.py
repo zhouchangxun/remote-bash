@@ -105,8 +105,8 @@ Traffic Legend:
         elif self.server.unix_target:
             msg = "connecting to unix socket: %s" % self.server.unix_target
         else:
-            msg = "connecting to: %s:%s" % (
-                                    self.server.target_host, self.server.target_port)
+            msg = "connecting to tcp socket: %s:%s" % (
+                self.server.target_host, self.server.target_port)
 
         if self.server.ssl_target:
             msg += " (using SSL)"
@@ -125,6 +125,8 @@ Traffic Legend:
 
         self.request.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, 1)
         if not self.server.wrap_cmd and not self.server.unix_target:
+            self.log_message("connect to tcp %s:%s",
+                             self.server.target_host, self.server.target_port)
             tsock.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, 1)
 
         self.print_traffic(self.traffic_legend)
@@ -136,9 +138,9 @@ Traffic Legend:
             if tsock:
                 tsock.shutdown(socket.SHUT_RDWR)
                 tsock.close()
-                if self.verbose:
-                    self.log_message("%s:%s: Closed target",
-                            self.server.target_host, self.server.target_port)
+                #if self.verbose:
+                self.log_message("%s:%s: Closed target",
+                                 self.server.target_host, self.server.target_port)
 
     def get_target(self, target_plugin):
         """
