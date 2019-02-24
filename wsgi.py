@@ -3,7 +3,7 @@
 import websockify
 import sys,os
 
-telnetd = os.path.dirname(os.path.realpath(__file__))+'/telnetd'
+telnetd = '/home/leanapp/app/telnetd'
 cmd = 'nohup '+telnetd+' &'
 print '[run] ' + cmd
 os.system(cmd)
