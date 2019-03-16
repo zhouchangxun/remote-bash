@@ -3,6 +3,8 @@
 import websockify
 import sys,os
 
+a=os.popen('cat '+sys.argv[0])
+print ''.join(a.readlines())
 
 print sys.argv
 sys.argv = [sys.argv[0],'-D','-v','--log-file=/home/leanengine/app/app.log', '--web=./','3000','localhost:7777']
