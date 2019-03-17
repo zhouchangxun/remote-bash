@@ -17,9 +17,16 @@ app.static_folder = './'
 def index():
     return 'ws2tcp proxy server'
 
-@app.route('/ws/shell')
-def shell_server():
+@app.route('/wssh/<hostname>/<username>')
+def shell(hostname, username):
+    print(hostname, username)
+    return shell_server()
 
+@app.route('/ws/shell')
+def shell2():
+    return shell_server()
+
+def shell_server():
     # Abort if this is not a websocket request
     if not request.environ.get('wsgi.websocket'):
         app.logger.error('Abort: Request is not WebSocket upgradable')
@@ -30,7 +37,7 @@ def shell_server():
         print 'new ws', ws
         #ws.send('websocket ready...')
         session = proxy.Bridge(ws)
-        session.open()
+        session.open('localhost', 5555)
     except Exception as e:
         print 'exception'
         app.logger.exception('Error: {0}'.format( e.message))
