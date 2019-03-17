@@ -7,7 +7,7 @@ from flask import Flask, request, abort, render_template
 from werkzeug.exceptions import BadRequest
 import gevent
 
-#import proxy
+import proxy
 
 app = Flask('wsgi')
 app.debug = True
